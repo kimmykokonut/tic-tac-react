@@ -1,9 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-export default function Square() {
+export default function Square({ value }: { value: number }) {
   return (
     <TouchableOpacity style={styles.square}>
-      <Text>X</Text>
+      <Text style={styles.text}>{value}</Text>
     </TouchableOpacity>
   );
 }
