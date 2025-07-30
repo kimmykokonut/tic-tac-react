@@ -7,6 +7,10 @@ export default function Board() {
   const [xIsNext, setXIsNext] = useState(true);
 
   const handleSquarePress = (index: number) => {
+    if (squares[index]) {
+      console.log("already clicked");
+      return;
+    }
     const nextSquares = squares.slice();
     if (xIsNext) {
       nextSquares[index] = "X";
