@@ -1,12 +1,7 @@
+import { SquareProps } from "@/app/types/models";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-export default function Square({
-  value,
-  onPress,
-}: {
-  value: string | null;
-  onPress: () => void;
-}) {
+export default function Square({ value, onPress }: SquareProps) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.square}>
       <Text style={styles.text}>{value}</Text>
