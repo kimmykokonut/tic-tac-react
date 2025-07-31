@@ -26,16 +26,20 @@ export default function Board() {
         squares[a] === squares[b] &&
         squares[a] === squares[c]
       ) {
-        console.log(`winner ${squares[a]}`);
         return squares[a] as Player;
       }
     }
-    console.log("no winner yet");
     return null;
+  };
+  // does this need to be called or always running?
+  const isDraw = (squares: GameBoard): boolean => {
+    return (
+      squares.every((square) => square !== null) && !calculateWinner(squares)
+    );
   };
 
   const handleSquarePress = (index: number) => {
-    if (squares[index] || calculateWinner(squares)) {
+    if (squares[index] || calculateWinner(squares) || isDraw(squares)) {
       return;
     }
     const nextSquares = squares.slice();
@@ -49,9 +53,12 @@ export default function Board() {
   };
 
   const winner = calculateWinner(squares);
+
   let status: string;
   if (winner) {
     status = `Winner: ${winner}`;
+  } else if (isDraw(squares)) {
+    status = "Draw: It's a tie!";
   } else {
     status = `Next player: ${xIsNext ? "X" : "O"}`;
   }
@@ -61,7 +68,7 @@ export default function Board() {
     setXIsNext(true);
   };
 
-  const gameIsOver = winner !== null;
+  const gameIsOver = winner !== null || isDraw(squares);
 
   return (
     <View style={styles.statusContainer}>
