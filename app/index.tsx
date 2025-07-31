@@ -1,5 +1,5 @@
 import Board from "@/components/Board";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 export default function Index() {
   return (
@@ -10,7 +10,6 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Lets Play! X goes first</Text>
       <Board />
     </View>
   );
