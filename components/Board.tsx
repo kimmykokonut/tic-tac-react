@@ -1,6 +1,6 @@
 import { GameBoard, Player } from "@/app/types/models";
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Square from "./Square";
 
 export default function Board() {
@@ -56,11 +56,16 @@ export default function Board() {
     status = `Next player: ${xIsNext ? "X" : "O"}`;
   }
 
+  const resetGame = () => {
+    setSquares(Array(9).fill(null));
+    setXIsNext(true);
+  };
+
+  const gameIsOver = winner !== null;
+
   return (
-    <>
-      <View>
-        <Text>{status}</Text>
-      </View>
+    <View style={styles.statusContainer}>
+      <Text style={styles.statusText}>{status}</Text>
       <View style={styles.board}>
         <View style={styles.row}>
           <Square onPress={() => handleSquarePress(0)} value={squares[0]} />
@@ -78,7 +83,13 @@ export default function Board() {
           <Square onPress={() => handleSquarePress(8)} value={squares[8]} />
         </View>
       </View>
-    </>
+      {/* Button to play again */}
+      {gameIsOver && (
+        <TouchableOpacity style={styles.resetButton} onPress={resetGame}>
+          <Text style={styles.resetButtonText}>Play Again</Text>
+        </TouchableOpacity>
+      )}
+    </View>
   );
 }
 
@@ -91,5 +102,27 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "center",
+  },
+  statusContainer: {
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  statusText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+    color: "#333",
+  },
+  resetButton: {
+    backgroundColor: "#007AFF",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 8,
+    marginTop: 5,
+  },
+  resetButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
